@@ -52,15 +52,14 @@ resource "helm_release" "cert_manager" {
   create_namespace = true
   depends_on       = [kubernetes_secret.suse-appco-registry, helm_release.nvidia_gpu_operator]
 
-  set {
+  set = [{
     name  = "crds.enabled"
     value = "true"
-  }
-
-  set {
+  },
+  {
     name  = "global.imagePullSecrets[0].name"
     value = kubernetes_secret.suse-appco-registry.metadata[0].name
-  }
+  }]
 }
 
 ## Add label to node for GPU assignment:

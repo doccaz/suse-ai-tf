@@ -56,14 +56,8 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = local_file.kube_config_yaml.filename
-  }
-
-  registry {
-    url      = "oci://${var.registry_name}"
-    username = var.registry_username
-    password = var.registry_password
   }
 }
 
